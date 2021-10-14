@@ -6,10 +6,9 @@ const PORT = 3000
 app.use(express.json())
 
 app.get('/api/:date?', (req, res)=>{
-
     const date = req.params.date
     if(date){
-        const time = new Date(Number.parseInt(date))
+        const time = date.match(/[0-9]{9,15}/) ? new Date(Number.parseInt(date)) : new Date(date)
         if(time.getTime()){
             res.json({
                 unix: time.getTime(),
